@@ -1,12 +1,8 @@
 package pages;
 
-import io.cucumber.messages.types.Hook;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 public class recordPage extends pagebase{
     public recordPage(WebDriver driver) {
@@ -15,30 +11,33 @@ public class recordPage extends pagebase{
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[1]/div/div[2]/div/div")
     WebElement userRoleDropDown;
-    @FindBy(xpath = "//div[contains(@class, 'oxd-select-text') and contains(@class, 'oxd-select-text--active')][2]")
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[3]/div/div[2]/div/div")
     WebElement statusDropDown;
-    @FindBy(xpath = "//input[@placeholder='Type for hints...']")
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/div/div[2]/div/div/input")
     WebElement employeeName;
-    @FindBy(xpath = "//input[@class='oxd-input oxd-input--active'][2]")
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[4]/div/div[2]/input")
     WebElement userName;
-    @FindBy(xpath = "//input[@class='oxd-input oxd-input--active'][3]")
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[1]/div/div[2]/input")
     WebElement userPassword;
-    @FindBy(xpath = "//input[@class='oxd-input oxd-input--active'][4]")
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[2]/div/div[2]/input")
     WebElement confirmPassword;
-//    @FindBy(className = "oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space")
-//    WebElement saveBtn;
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[3]/button[2]")
+    WebElement saveBtn;
 
-    public void addNewUser(String role, String status,String empName,String usrName,String usrPass){
+    public void addNewUser(WebDriver driver,String empName, String usrName, String usrPass) throws InterruptedException {
 
-//        userRoleDropDown.click();
-        recordPage obj = new recordPage(driver);
-        String script = "arguments[0].value = 'Admin';";
-        ((JavascriptExecutor) driver).executeScript(script, userRoleDropDown);
-        statusDropDown.sendKeys(status);
+        Actions actions = new Actions(driver);
+
+        userRoleDropDown.click();
+        actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+        statusDropDown.click();
+        actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
         employeeName.sendKeys(empName);
+        Thread.sleep(3000);
+        actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
         userName.sendKeys(usrName);
         userPassword.sendKeys(usrPass);
         confirmPassword.sendKeys(usrPass);
-//        saveBtn.click();
+        saveBtn.click();
     }
 }
