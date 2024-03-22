@@ -12,5 +12,5 @@ Feature: Automated End2End Test
 
     Examples:
       |username | password | empName | usrName  | usrPass      |
-      |Admin    | admin123 |Org     | testuser | Password@123 |
+      |Admin    | admin123 |Oran     | testuser | Password@123 |
 
